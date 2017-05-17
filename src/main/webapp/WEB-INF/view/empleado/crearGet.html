@@ -1,0 +1,30 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+</head>
+<body>
+	<form th:action="@{/CrudEmple/Empleado/crearPost}" method="post">
+		<input type="text" name="nombre"/><br/>
+		<input type="text" name="apellidos"/><br/>
+		<label>LENGUAJES DE PROGRAMACIÓN</label>		
+		<div  th:each="lp:${lps}">
+		<label for="${lp.id}" th:text="${lp.nombre}"></label><br/>
+		<input type="checkbox" th:value="${lp.id}" name="lps" id="${lp.id}"/>
+		</div><br/>
+		<label>CIUDADES</label>		
+		<select name="ciudad">			
+			<option th:each="ciudad:${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}"/>	
+		</select><br/>
+		<input type="submit" value="Crear Empleado"/>
+	</form>
+	<table>
+		<tr><th>Nombre</th><th>Apellidos</th><th>Lenguajes conocidos</th><th>Ciudad</th></tr>
+		<tr th:each="empleado : ${empleados}">
+			<td th:text="${empleado.nombre}"></td>
+			<td th:text="${empleado.apellidos}"></td>
+			<td><span th:each="empleLp : ${empleado.lps}" th:text="${empleLp.nombre}"></span><br/></td>
+			<td th:text="${empleado.ciudad.nombre}"></td>
+		</tr>
+	</table>
+</body>
+</html>
